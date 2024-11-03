@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+  - name: staging
+    database: demo_dbt
+    schema: staging
+    tables:
+      - name: customer
+        columns:
+          - name: customerid
+            tests:
+              - unique
+              - not_null
+      - name: product
+        columns:
+          - name: productid
+            tests:
+              - unique
+              - not_null
+      - name: region
+        columns:
+          - name: regionid
+            tests:
+              - unique
+              - not_null
+      - name: sales
+        columns:
+          - name: rowid
+            description: "Unique row identifier"
+            tests:
+              - not_null
+          - name: orderid
+            description: "Unique order identifier"
+            tests:
+              - not_null
+        tests:
+          - unique:
+              combination_of:
+                - rowid
+                - orderid
+      - name: shipmode
+        columns:
+          - name: productid
+            tests:
+              - unique
+              - not_null
